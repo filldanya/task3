@@ -20,8 +20,10 @@ class Smart_array
 private:
     int* _arr;
     int _size = 0;
-    int index = 0;
+    int _index = 0;
 public:
+    Smart_array(const Smart_array&) = delete;
+    Smart_array& operator=(const Smart_array&) = delete;
     Smart_array(int size) : _size(size)
     {
         _arr = new int[size];
@@ -32,16 +34,16 @@ public:
     }
     void add_element(int number)
     {
-        if (index > _size)
+        if (_index > _size)
         {
             throw bad_range();
         }
-        _arr[index] = number;
-        ++index;
+        _arr[_index] = number;
+        ++_index;
     }
     int get_element(int index)
     {
-        if (index < 0 && index > _size)
+        if (index < 0 && index > _index)
         {
             throw bad_element();
         }
@@ -62,6 +64,7 @@ int main()
         arr.add_element(155);
         arr.add_element(14);
         arr.add_element(15);
+
         std::cout << arr.get_element(1) << std::endl;
     }
     catch (bad_element& ex) {

@@ -4,7 +4,7 @@ class Smart_array
 private:
     int* _arr;
     int _size = 0;
-    int index = 0;
+    int _index = 0;
 public:
     Smart_array(int size) : _size(size)
     {
@@ -16,16 +16,16 @@ public:
     }
     void add_element(int number)
     {
-        if (index > _size)
+        if (_index > _size)
         {
             throw "out of range!";
         }
-        _arr[index] = number;
-        ++index;
+        _arr[_index] = number;
+        ++_index;
     }
     int get_element(int index)
     {
-        if (index < 0 && index > _size)
+        if (index < 0 && index > _index)
         {
             throw "invalid index!";
         }
@@ -35,13 +35,30 @@ public:
     {
         return _size;
     }
-    Smart_array& operator = (Smart_array& arr)
+    Smart_array& operator=(const Smart_array& arr)
     {
-        for (int i = 0; i < arr.get_size(); i++)
+        if (this == &arr)
         {
-            _arr[i] = arr.get_element(i);
+            return  *this;
         }
-        return arr;
+        if (arr._size > _size)
+        {
+            delete[] _arr;
+            _arr = new int[arr._size];
+        }
+        for (int i = 0; i < arr._size; i++)
+        {
+            _arr[i] = arr._index;
+        }
+        return *this;
+    }
+    Smart_array(const Smart_array& c)
+    {
+        _arr = new int[c._size];
+        for (int i = 0; i < c._size; i++)
+        {
+            _arr[i] = c._index;
+        }
     }
 };
 
@@ -63,5 +80,3 @@ int main()
         std::cout << ex.what() << std::endl;
     }
 }
-
-
