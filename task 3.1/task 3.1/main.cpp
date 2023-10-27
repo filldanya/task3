@@ -43,7 +43,7 @@ public:
     }
     int get_element(int index)
     {
-        if (index < 0 && index > _index)
+        if (index < 0 || index >(_index - 1))
         {
             throw bad_element();
         }
@@ -65,7 +65,7 @@ int main()
         arr.add_element(14);
         arr.add_element(15);
 
-        std::cout << arr.get_element(1) << std::endl;
+        std::cout << arr.get_element(5) << std::endl;
     }
     catch (bad_element& ex) {
         std::cout << ex.what() << std::endl;
